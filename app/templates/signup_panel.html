@@ -1,0 +1,131 @@
+{% extends "layout.html" %}
+{% block head%}
+  <!-- Bootstrap Cyborg bootswatch CSS -->
+  <!-- <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/cyborg/bootstrap.min.css" rel="stylesheet"> -->
+  <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/paper/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <style>
+    body {
+      padding-top: 40px;
+      padding-bottom: 40px;
+      /*background-color: #eee;*/
+    }
+
+    form {
+      max-width: 330px;
+      padding: 15px;
+      margin: 0 auto;
+    }
+    form .form-heading,
+    form .checkbox {
+      margin-bottom: 10px;
+    }
+    form .checkbox {
+      font-weight: normal;
+    }
+    form .form-control {
+      position: relative;
+      height: auto;
+      -webkit-box-sizing: border-box;
+         -moz-box-sizing: border-box;
+              box-sizing: border-box;
+      padding: 10px;
+      font-size: 16px;
+    }
+    form .form-control:focus {
+      z-index: 2;
+    }
+    form input{
+      width: 100%;
+    }
+    form input[type="email"] {
+      margin-bottom: -1px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    form input[type="password"] {
+      margin-bottom: 10px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  </style>
+  <title>Signin Template for Bootstrap</title>
+{% endblock%}
+{% block body%}
+    <div class="container">
+      <form class="form-horizontal" action="" method="post">
+        <fieldset>
+
+        <!-- Form Name -->
+        <legend>A\C Registration</legend>
+
+        <!-- Text input-->
+        <div class="control-group">
+          <label class="control-label" for="user-name"></label>
+          <div class="controls">
+            <input id="user-name" name="user-name" type="text" placeholder="Full Name" class="input-xxlarge" required="">
+
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="control-group">
+          <label class="control-label" for="user-email"></label>
+          <div class="controls">
+            <input id="user-email" name="user-email" type="text" placeholder="Email Addressee " class="input-xxlarge" required="">
+
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="control-group">
+          <label class="control-label" for="user-mobile"></label>
+          <div class="controls">
+            <input id="user-mobile" name="user-mobile" type="text" placeholder="Mobile Number" class="input-xxlarge" required=""
+            >
+            <p class="help-block">Enter 11 digit Mobile Number (01XX-XXX-XXXX)</p>
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="control-group">
+          <label class="control-label" for="user-rfid"></label>
+          <div class="controls">
+            <input id="user-rfid" name="user-rfid" type="text" placeholder="RFID" class="input-xxlarge">
+            <p class="help-block">Members Only</p>
+          </div>
+        </div>
+        </fieldset>
+
+        <button type="submit" class="btn btn-primary pull-right">Submit</button>
+        </form>
+
+    </div> <!-- /container -->
+{% endblock%}
+{% block js %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/jquery.inputmask.bundle.min.js') }}"></script>
+    <script>
+      $(document).ready(function(){
+        $('#user-mobile').inputmask("0199-999-9999");
+
+        //email mask
+        $('#user-email').inputmask({
+          mask: "*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{2,6}][.*{1,2}]",
+          greedy: false,
+          onBeforePaste: function (pastedValue, opts) {
+              pastedValue = pastedValue.toLowerCase();
+              return pastedValue.replace("mailto:", "");
+          },
+          definitions: {
+              '*': {
+                  validator: "[0-9A-Za-z!#$%&'*+/=?^_`{|}~\-]",
+                  cardinality: 1,
+                  casing: "lower"
+              }
+          }
+        });
+      });
+    </script>
+{% endblock %}

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+cd app/
+screen -S fablab-ac -d -m ./app.py

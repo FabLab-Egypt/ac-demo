@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>API Documentaction</title>
+<link rel="stylesheet" href="https://stackedit.io/res-min/themes/base.css" />
+<script type="text/javascript" src="https://stackedit.io/libs/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body><div class="container"><h1 id="fab-lab-egypt">Fab Lab Egypt</h1>
+
+
+
+<h2 id="access-control-api">Access Control - API</h2>
+
+
+
+<h3 id="membervisitors-record">Member/Visitors Record</h3>
+
+
+
+<h4 id="add-new-record">Add New Record</h4>
+
+<blockquote>
+  <p>Request:</p>
+
+  <blockquote>
+    <p>[GET] <strong>/users/add/</strong> </p>
+  </blockquote>
+
+  <p>Respond:</p>
+
+  <blockquote>
+    <p>(text/html) A HTMl Webform to submit new User Recored</p>
+  </blockquote>
+
+  <hr>
+
+  <p>Request:</p>
+
+  <blockquote>
+    <p>[POST] <strong>/users/add/</strong> </p>
+
+    <blockquote>
+      <p><strong>Fields:</strong> <br>
+      <code>user-name</code>……..user full name <br>
+      <code>user-email</code>……user email address <br>
+      <code>user-mobile</code>….user mobile <br>
+      <code>user-rfid</code>……..user RFID hash (members only)</p>
+    </blockquote>
+  </blockquote>
+
+  <p>Respond:</p>
+
+  <blockquote>
+    <p>Case: Successful</p>
+
+    <blockquote>
+      <p>Status: 200 <br>
+      Content-type: text/plain</p>
+
+      <p>Recored Saved</p>
+    </blockquote>
+
+    <p>Case: Duplication Found</p>
+
+    <blockquote>
+      <p>Status: 403 <br>
+      Content-type: text/plain</p>
+
+      <p>Recored Duplicated, Not Saving</p>
+    </blockquote>
+
+    <p>Case: Error</p>
+
+    <blockquote>
+      <p>Status: 400 <br>
+      Content-type: text/plain</p>
+
+      <p>Bad Request</p>
+    </blockquote>
+  </blockquote>
+</blockquote>
+
+
+
+<h4 id="list-available-records">List Available Records</h4>
+
+<blockquote>
+  <p>Request</p>
+
+  <blockquote>
+    <p>[GET] <strong>/users/list/</strong></p>
+  </blockquote>
+
+  <p>Respond</p>
+
+  <blockquote>
+    <p>(text/html) List Available Records.</p>
+  </blockquote>
+
+  <hr>
+
+  <p>Request</p>
+
+  <blockquote>
+    <p>[GET] <strong>/users/list/members</strong></p>
+  </blockquote>
+
+  <p>Respond</p>
+
+  <blockquote>
+    <p>(text/html) List Available Members Records.</p>
+  </blockquote>
+
+  <hr>
+
+  <p>Request</p>
+
+  <blockquote>
+    <p>[GET] <strong>/users/list/visitors</strong></p>
+  </blockquote>
+
+  <p>Respond</p>
+
+  <blockquote>
+    <p>(text/html) List Available Visitors Records.</p>
+  </blockquote>
+</blockquote>
+
+
+
+<h3 id="authentication">Authentication</h3>
+
+<dl>
+<dt>Visitors Authentication</dt>
+<dd>Visitors Authentication via keypad using there individual mobile phone number as a authentication token.</dd>
+
+<dt>Members Authentication</dt>
+<dd>Members Authentication via RFID using RFID a authentication token.</dd>
+</dl>
+
+<blockquote>
+  <p>Request</p>
+
+  <blockquote>
+    <p>Visitors</p>
+
+    <blockquote>
+      <p>[GET] <strong>/a/<code>&lt;mobile-number&gt;</code>/</strong>  <br>
+      <code>&lt;mobile-number&gt;</code> users mobile phone number (ex: 01XXXXXXXXX, 11 digit)</p>
+    </blockquote>
+
+    <p>Members</p>
+
+    <blockquote>
+      <p>[GET] <strong>/a/<code>&lt;RFID-HASH&gt;</code>/</strong>  <br>
+      <code>&lt;RFID-HASH&gt;</code> the full RFID value.</p>
+    </blockquote>
+  </blockquote>
+
+  <p>Respond</p>
+
+  <blockquote>
+    <p>Case: Successful:</p>
+
+    <blockquote>
+      <p>Status: 200 <br>
+      Content-type: text/plain</p>
+
+      <p>name: <em><code>&lt;name&gt;</code></em> <br>
+      mobile: <em><code>&lt;mobile&gt;</code></em> <br>
+      type: <code>visitor|member</code></p>
+    </blockquote>
+
+    <p>Case: Blocked/Disabled:</p>
+
+    <blockquote>
+      <p>Status: 401 <br>
+      Content-type: text/plain</p>
+
+      <p>Unauthorized: Token Expired/Invalid</p>
+    </blockquote>
+
+    <p>Case: Not Found:</p>
+
+    <blockquote>
+      <p>Status: 404 <br>
+      Content-type: text/plain</p>
+
+      <p>Not Found</p>
+    </blockquote>
+
+    <p>Case: Auth. Visitor Found A Member:</p>
+
+    <blockquote>
+      <p>Status: 405 <br>
+      Content-type: text/plain</p>
+
+      <p>Not Allowed</p>
+    </blockquote>
+
+    <p>Case: Error:</p>
+
+    <blockquote>
+      <p>Status: 400 <br>
+      Content-type: text/plain</p>
+
+      <p>Bad Request</p>
+    </blockquote>
+  </blockquote>
+</blockquote>
+
+<hr>
+
+<blockquote>
+  <p>Written with <a href="https://stackedit.io/">StackEdit</a>.</p>
+</blockquote></div></body>
+</html>
